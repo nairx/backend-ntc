@@ -24,6 +24,22 @@ app.post("/", async (req, res) => {
   res.status(200).json(newProduct);
 });
 
+app.post("/users", async (req, res) => {
+  const { name, email, pass } = req.body;
+  const data = {
+    name: name,
+    email: email,
+    pass:pass,
+  };
+  const newUser = await db.collection("users").insertOne(data);
+  res.status(200).json(newUser);
+});
+
+app.post("/find",async (req,res)=> {
+  const {email,pass} = req.body
+  
+})
+
 app.listen(8080, () => {
   console.log("Server started at port 8080");
 });
