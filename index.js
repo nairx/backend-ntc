@@ -29,16 +29,27 @@ app.post("/users", async (req, res) => {
   const data = {
     name: name,
     email: email,
-    pass:pass,
+    pass: pass,
   };
   const newUser = await db.collection("users").insertOne(data);
   res.status(200).json(newUser);
 });
 
-app.post("/find",async (req,res)=> {
-  const {email,pass} = req.body
-  
-})
+app.post("/find", async (req, res) => {
+  const { email, pass } = req.body;
+  console.log(email, pass);
+  const user = await db
+    .collection("users")
+    .findOne({ email: email, pass: pass });
+  let flag = false;
+  if (user) {
+    flag = true;
+    res.json({ message: flag });
+  } else {
+    res.json({ message: flag });
+  }
+  /// res.status(200).json(newUser);
+});
 
 app.listen(8080, () => {
   console.log("Server started at port 8080");
